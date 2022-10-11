@@ -1,4 +1,5 @@
 #!/bin/python3
+/* azusaw */
 
 import math
 import os
@@ -20,11 +21,10 @@ def encryption(s):
     c = n + 1 if n ** 2 != l else n
     res = ""
     for i in range(0, c):
-        tmp = ""
         for j in range(0, r):
             if (i + j * c) < l:
-                tmp += s[i + j * c]
-        res += tmp + " "
+                res += s[i + j * c]
+        res += " "
     return res
 
 if __name__ == '__main__':
