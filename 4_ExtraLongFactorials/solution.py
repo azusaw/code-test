@@ -1,5 +1,5 @@
-#azusaw
 #!/bin/python3
+# azusaw
 
 import math
 import os
