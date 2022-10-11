@@ -33,7 +33,7 @@ function readLine() {
  */
 
 function nonDivisibleSubset(k, s) {
-    s = s.map((n) => [n % k])
+    s = s.map((n) => n % k)
     let r = new Array(k).fill(0)
     for (let i = 0; i < s.length; i++) {
          r[s[i]] += 1
