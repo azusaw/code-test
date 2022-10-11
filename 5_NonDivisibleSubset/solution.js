@@ -33,33 +33,17 @@ function readLine() {
  */
 
 function nonDivisibleSubset(k, s) {
-    s = s.map((n) => {
-        let cnt = 0
-        for (let i = 0; i < s.length; i++) {
-            if (n != s[i] && (n + s[i]) % k == 0) {
-                cnt += 1
-            }
-        }
-        return [n, cnt]    
-    })
-    s.sort((a, b) => {
-        if (a[1] > b[1]) return 1
-        if (a[1] < b[1]) return -1
-        return 0
-    })
-    let sf = []
-    for (let n1 of s) {
-        let f = 0
-        for (let n2 of sf) {
-            console.log(n1, n2)
-            if ((n1[0] + n2) % k == 0) {
-                f = 1
-                break
-            }
-        }
-        f == 0 && sf.push(n1[0])
+    s = s.map((n) => [n % k])
+    let r = new Array(k).fill(0)
+    for (let i = 0; i < s.length; i++) {
+         r[s[i]] += 1
     }
-    return sf.length
+    let res = 
+        k % 2 == 0 ? r[0] > 0 ? 1 : 0 : r[0]
+    for (let i = 1; i < (k - i); i++) {
+        res += Math.max(r[i], r[k - i])
+    }
+    return res
 }
 
 function main() {
