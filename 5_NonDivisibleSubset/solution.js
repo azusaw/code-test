@@ -1,4 +1,5 @@
 'use strict';
+/* azusaw */
 
 const fs = require('fs');
 
