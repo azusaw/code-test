@@ -38,8 +38,7 @@ function nonDivisibleSubset(k, s) {
     for (let i = 0; i < s.length; i++) {
          r[s[i]] += 1
     }
-    let res = 
-        k % 2 == 0 ? r[0] > 0 ? 1 : 0 : r[0]
+    let res = r[0] > 0 ? k % 2 == 0 ? r[k / 2] > 0 ? 2 : 1 : 1 : 0
     for (let i = 1; i < (k - i); i++) {
         res += Math.max(r[i], r[k - i])
     }
