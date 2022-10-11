@@ -14,10 +14,7 @@ import sys
 #
 
 def extraLongFactorials(n):
-    res = 1
-    for i in range(0, n):
-        res = res * (n - i)
-    print(res)
+    print(math.factorial(n))
 
 if __name__ == '__main__':
     n = int(input().strip())
