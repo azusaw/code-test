@@ -22,22 +22,19 @@ def formingMagicSquare(s):
         t2 = 0
         for i in range(0, 3):
             for j in range(0, 3):
-                # normal pattern
-                t1 += abs(mc[i][j] - s[i][j])
-                # reverse pattern
-                t2 += abs(mc[i][2-j] - s[i][j])
+                t1 += abs(mc[i][j] - s[i][j])   # normal pattern
+                t2 += abs(mc[i][2-j] - s[i][j]) # reverse pattern
         res = min(res, t1, t2)
     return res
 
 def makeMagicSquare():
     ms_list=[[[2,9,4],[7,5,3],[6,1,8]]]
-    # make rotate pattern
     for i in range(0, 3):
         r = []
         for j in range (0, 3):
             c = []
             for k in range(0, 3):
-                c.append(ms_list[i][2-k][j])
+                c.append(ms_list[i][2-k][j]) # 90deg rotate clockwise
             r.append(c)
         ms_list.append(r)
     return ms_list
