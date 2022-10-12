@@ -26,11 +26,11 @@ def timeInWords(h, m):
         s.append(convertNumToStr(h + 1 if m == 45 else h))
     else:
         s.append(convertNumToStr(m if m < 30 else 60 - m))
-        s.append("minutes")
+        s.append("minute" if m == 1 or m == 59 else "minutes")
         s.append("past" if m < 30 else "to")
         s.append(convertNumToStr(h if m < 30 else h + 1))
         
-    return " ".join(s).replace("one minutes", "one minute")
+    return " ".join(s)
 
 def convertNumToStr(n):
     numl = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"]
