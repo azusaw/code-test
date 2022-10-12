@@ -29,7 +29,6 @@ def timeInWords(h, m):
         s.append("minute" if m == 1 or m == 59 else "minutes")
         s.append("past" if m < 30 else "to")
         s.append(convertNumToStr(h if m < 30 else h + 1))
-        
     return " ".join(s)
 
 def convertNumToStr(n):
