@@ -16,7 +16,7 @@ string rtrim(const string &);
 
 string numToWords(int n) {
     
-    string num[21]={
+    string num[21] = {
                     "one",
                     "two",
                     "three",
@@ -36,41 +36,37 @@ string numToWords(int n) {
                     "seventeen",
                     "eighteen",
                     "nineteen",
-                    "twenty",
-                    "half"
-                    };
+                    "twenty"
+    };
 
     if (n<=20) return num[n-1];
-    else if (n==30) return num[20];
-    else {
-        return num[19] + " " + num[n-21];
-    }
+    return num[19] + " " + num[n-21];
 }
 
 string timeInWords(int h, int m) {
-    string res;
+    vector<string> res;
+    string ans;
     
     if (m==0) {
-        return numToWords(h) + " o' clock";
+        res = {numToWords(h),"o' clock"};
     }
-    else if (m==15||m==30) {
-        return numToWords(m) + " past " + numToWords(h);
-    }
-    else if (m==1) {
-        return numToWords(m) + " minute past " + numToWords(h);
-    }
-    if (m<=30) {
-        return numToWords(m) + " minutes past " + numToWords(h);
-    }
-    if (m==45) {
-        return numToWords(60-m) + " to " + numToWords(h+1);
-    }
-    if (m==59) {
-            return numToWords(60-m) + " minute to " + numToWords(h+1);
+    else if (m%15==0) {
+        res.push_back(m==30?"half":"quarter");
+        res.push_back(m!=45?"past":"to");
+        res.push_back(m!=45?numToWords(h):numToWords(h+1));
     }
     else {
-            return numToWords(60-m) + " minutes to " + numToWords(h+1);
-    }   
+        res.push_back(m<30?numToWords(m):numToWords(60-m));
+        res.push_back(m==1||m==59?"minute":"minutes");
+        res.push_back(m<30?"past":"to");
+        res.push_back(m<30?numToWords(h):numToWords(h+1));
+    }
+    
+    for(auto &e: res) {
+        ans += e + " ";
+    }
+    ans.pop_back();
+    return ans;
 }
 
 int main()
