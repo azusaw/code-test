@@ -21,79 +21,55 @@ vector<string> split(const string &);
 int queensAttack(int n, int k, int r_q, int c_q, vector<vector<int>> obstacles) {
     int m;
     int ans;
-    int half=n/2;
     int top,under,right,left,tr,ur,tl,ul;
     
-    top = n+1;
-    right = n+1;
-    tr = n+1;
+    top = 0;
+    right = 0;
+    tr = 0;
     under = 0;
     left = 0;
     tl = 0;
     ul = 0;
     ur = 0;
     
-    if (n%2==0) {
-        for (int i=0;i<n/2;i++) {
-            if ((r_q>=half-i && r_q<=half+1+i) && (c_q>=half-i && c_q<=half+1+i)) {
-                m = (n-1) * 4 - 1 - i * 2;
-                break;
-            }
-        }
-    }
-    else {
-        for (int i=0;i<half+1;i++) {
-            if ((r_q>=half+1-i && r_q<=half+1+i) && (c_q>=half+1-i && c_q<=half+1+i)) {
-                m = (n-1) * 4 - i * 2;
-                break;
-            }
-        }
-    }
-    ans = m;
+    m = (n-1) * 2 + n - max(r_q,c_q) + min(r_q,c_q) - 1 + min(r_q-1,n-c_q) + min(n-r_q,c_q-1);
+    
     for (int i=0;i<k;i++) {
         if (k==0) {
             break;
         }
         if (obstacles[i][0] == r_q) {
-            if (obstacles[i][1] > c_q && obstacles[i][1] < right) {
-                ans = ans - right + obstacles[i][1];
-                right = obstacles[i][1];
+            if (obstacles[i][1] > c_q && (n-obstacles[i][1]+1) > right) {
+                right = n-obstacles[i][1]+1;
             }
             else if (obstacles[i][1] < c_q && obstacles[i][1] > left) {
-                ans = ans + left - obstacles[i][1];
                 left = obstacles[i][1];
             }
         }
         else if (obstacles[i][1] == c_q) {
-            if (obstacles[i][0] > r_q && obstacles[i][0] < top) {
-                ans = ans - top + obstacles[i][0];
-                top = obstacles[i][0];
+            if (obstacles[i][0] > r_q && (n-obstacles[i][0]+1) > top) {
+                top = n-obstacles[i][0]+1;
             }
             else if (obstacles[i][0] < r_q && obstacles[i][1] > under) {
-                ans = ans + under - obstacles[i][0];
                 under = obstacles[i][0];
             }
         }
         else if (abs(obstacles[i][0]-r_q) ==  abs(obstacles[i][1]-c_q)) {
-            if (obstacles[i][0]>r_q && obstacles[i][1]>c_q && max(obstacles[i][0],obstacles[i][1]) < tr) {
-                ans = ans -  tr + max(obstacles[i][0],obstacles[i][1]);
-                tr = max(obstacles[i][0],obstacles[i][1]);
+            if (obstacles[i][0]>r_q && obstacles[i][1]>c_q && n-max(obstacles[i][0],obstacles[i][1])+1 > tr) {
+                tr = n-max(obstacles[i][0],obstacles[i][1])+1;
             }
             else if (obstacles[i][0]>r_q && obstacles[i][1]<c_q && min(n-obstacles[i][0]+1,obstacles[i][1]) > tl) {
-                ans = ans + tl -  min(n-obstacles[i][0]+1,obstacles[i][1]);
                 tl = min(n-obstacles[i][0]+1,obstacles[i][1]);
             }
             else if ((obstacles[i][0]<r_q && obstacles[i][1]>c_q) && min(obstacles[i][0],n-obstacles[i][1]+1) > ur) {
-                ans = ans + ur -  min(obstacles[i][0],n-obstacles[i][1]+1);
                 ur = min(obstacles[i][0],n-obstacles[i][1]+1);
             }
             else if ((obstacles[i][0]<r_q && obstacles[i][1]<c_q) && min(obstacles[i][0],obstacles[i][1]) > ul) {
-                ans = ans + ul -  min(obstacles[i][0],obstacles[i][1]);
                 ul = min(obstacles[i][0],obstacles[i][1]);
             }
         }
-        cout << ans << endl;
     }
+    ans = m - right - left - top - under - tr - tl - ur -ul;
     return ans;
 }
 
