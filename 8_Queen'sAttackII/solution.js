@@ -67,7 +67,7 @@ function queensAttack(n, k, r_q, c_q, obstacles) {
         }
     }
     // diagonal direction
-    let m = Math.min(Math.abs(n - Math.max(r_q, c_q)), Math.abs(Math.min(r_q, c_q) - 1))
+    let m = Math.min(n - Math.max(r_q, c_q), Math.min(r_q, c_q) - 1)
     cnt += n - 1 + m * 2
     if (obs_d.length > 0) {
         tmp = obs_d.filter((v) => v[0] > r_q && v[1] < c_q).sort()
