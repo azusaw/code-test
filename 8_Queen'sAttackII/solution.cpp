@@ -21,7 +21,8 @@ vector<string> split(const string &);
 int queensAttack(int n, int k, int r_q, int c_q, vector<vector<int>> obstacles) {
     int m;
     int ans;
-    int top,under,right,left,tr,ur,tl,ul;
+    int top, under, right, left, tr, ur, tl, ul;
+    int r1, c1, r2, c2;
     
     top = 0;
     right = 0;
@@ -34,37 +35,42 @@ int queensAttack(int n, int k, int r_q, int c_q, vector<vector<int>> obstacles) 
     
     m = (n-1) * 2 + n - max(r_q,c_q) + min(r_q,c_q) - 1 + min(r_q-1,n-c_q) + min(n-r_q,c_q-1);
     
+    if (k==0) {
+        return m;
+    }
+
     for (int i=0;i<k;i++) {
-        if (k==0) {
-            break;
-        }
-        if (obstacles[i][0] == r_q) {
-            if (obstacles[i][1] > c_q && (n-obstacles[i][1]+1) > right) {
-                right = n-obstacles[i][1]+1;
+        r1 = obstacles[i][0] - r_q;
+        c1 = obstacles[i][1] - c_q;
+        r2 = n-obstacles[i][0]+1;
+        c2 = n-obstacles[i][1]+1;
+        if (r1 == 0) {
+            if (c1 > 0 && c2 > right) {
+                right = c2;
             }
-            else if (obstacles[i][1] < c_q && obstacles[i][1] > left) {
+            else if (c1 < 0 && obstacles[i][1] > left) {
                 left = obstacles[i][1];
             }
         }
-        else if (obstacles[i][1] == c_q) {
-            if (obstacles[i][0] > r_q && (n-obstacles[i][0]+1) > top) {
-                top = n-obstacles[i][0]+1;
+        else if (c1 == 0) {
+            if (r1 > 0 && r2 > top) {
+                top = r2;
             }
-            else if (obstacles[i][0] < r_q && obstacles[i][1] > under) {
+            else if (r1 < 0 && obstacles[i][1] > under) {
                 under = obstacles[i][0];
             }
         }
-        else if (abs(obstacles[i][0]-r_q) ==  abs(obstacles[i][1]-c_q)) {
-            if (obstacles[i][0]>r_q && obstacles[i][1]>c_q && n-max(obstacles[i][0],obstacles[i][1])+1 > tr) {
-                tr = n-max(obstacles[i][0],obstacles[i][1])+1;
+        else if (abs(r1) ==  abs(c1)) {
+            if (r1 > 0 && c1 > 0 && min(r2,c2) > tr) {
+                tr = min(r2,c2);
             }
-            else if (obstacles[i][0]>r_q && obstacles[i][1]<c_q && min(n-obstacles[i][0]+1,obstacles[i][1]) > tl) {
-                tl = min(n-obstacles[i][0]+1,obstacles[i][1]);
+            else if (r1 > 0 && c1 < 0 && min(r2,obstacles[i][1]) > tl) {
+                tl = min(r2,obstacles[i][1]);
             }
-            else if ((obstacles[i][0]<r_q && obstacles[i][1]>c_q) && min(obstacles[i][0],n-obstacles[i][1]+1) > ur) {
-                ur = min(obstacles[i][0],n-obstacles[i][1]+1);
+            else if ((r1 < 0 && c1 > 0) && min(obstacles[i][0],c2) > ur) {
+                ur = min(obstacles[i][0],c2);
             }
-            else if ((obstacles[i][0]<r_q && obstacles[i][1]<c_q) && min(obstacles[i][0],obstacles[i][1]) > ul) {
+            else if ((r1 < 0 && c1 < 0) && min(obstacles[i][0],obstacles[i][1]) > ul) {
                 ul = min(obstacles[i][0],obstacles[i][1]);
             }
         }
