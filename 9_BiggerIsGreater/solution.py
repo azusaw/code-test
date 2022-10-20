@@ -41,8 +41,7 @@ def sortletterOrder(w):
                     return lw
                 l = lw[len(lw) - i + 1:]
                 l.sort()
-                lw = lw[:len(lw) - i + 1] + l
-                return lw
+                return lw[:len(lw) - i + 1] + l
     
 
 if __name__ == '__main__':
